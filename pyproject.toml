@@ -1,0 +1,19 @@
+[project]
+name = "rag-vlm"
+version = "0.1.0"
+description = "本地 BM25、BGE-M3 語義與混合檢索的實驗與評估"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "flagembedding>=1.4.2",
+    "huggingface-hub>=2.4.0",
+    "numpy>=2.4.6",
+    "torch==2.8.0",
+]
+
+[tool.uv.sources]
+torch = { index = "pytorch-cu128" }
+
+[[tool.uv.index]]
+name = "pytorch-cu128"
+url = "https://download.pytorch.org/whl/cu128"

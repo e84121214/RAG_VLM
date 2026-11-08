@@ -1,0 +1,84 @@
+# RAG_VLM
+
+本地文件檢索實驗：比較 BM25、BGE-M3 語義檢索及 RRF 混合檢索。
+目前功能為找回原文與評估來源排名，尚未接入生成式回答模型。
+
+## 資料夾導覽
+
+| 資料夾 | 用途 |
+|---|---|
+| `data/raw/` | 原始報告 PDF、DWG 台帳圖與測試照片 |
+| `data/processed/` | 報告 Markdown、分章 PDF；不改寫原始資料 |
+| `data/testsets/` | 測試題、標準答案與來源行號 |
+| `src/` | 本地檢索、向量建立及排名報告匯出程式 |
+| `tests/` | 程式的離線檢查 |
+| `outputs/evaluations/` | 三種方法的評估 JSON |
+| `outputs/rankings/` | 逐題來源排行榜 HTML 與完整排名 JSON |
+| `outputs/vlm/` | 保存的 VLM 測試輸出 |
+| `docs/technical/` | Code 節點等技術文件 |
+| `docs/diagrams/` | 工作流與架構圖 |
+| `docs/progress/` | 工作進度、接續筆記 |
+| `meetings/` | 按日期分類的簡報、報告及會前準備 |
+| `archive/` | 舊建置工具、驗證中間檔、預覽及初始化範例 |
+| `models/` | 已下載的本地模型權重 |
+| `.document-cache/` | 向量索引與工具快取 |
+| `.venv/` | uv 管理的 Python 環境 |
+
+`pyproject.toml`、`uv.lock`、`.python-version`、`.gitignore` 和本說明保留於根目錄，供 uv 與 Git 使用。
+
+## 平常怎麼執行
+
+在專案根目錄開啟 PowerShell。搬移後，程式路徑改為 `src/`：
+
+```powershell
+# 單題檢索
+uv run python src/bge_local.py retrieve "鄭子寮一下雨就淹，是什麼原因？" --mode hybrid -k 3
+
+# 匯出每題兩種檢索的前 20 名
+uv run python src/bge_local.py rankings
+
+# 純語義／混合評估，結果保存到 outputs/evaluations/
+uv run python src/bge_local.py eval --mode semantic
+uv run python src/bge_local.py eval --mode hybrid
+
+# BM25 單題檢索，不需要載入模型
+uv run python src/local_rag.py retrieve "鄭子寮雨季積水的原因？" -k 3
+
+# 離線程式檢查
+uv run python -m unittest discover -s tests
+```
+
+使用 `uv run python src/bge_local.py`，讓程式使用專案的 CUDA PyTorch 環境。
+直接寫 `uv run src/bge_local.py` 會使用檔頭的獨立腳本依賴管理，可能與專案環境不同。
+
+## 模型與文件向量
+
+這台電腦已下載模型並建立索引，整理資料夾後不需重新下載或重建。
+只有模型或實際切塊內容改變時，才需要重新建立索引：
+
+```powershell
+uv run python src/bge_local.py index
+```
+
+GitHub 保存程式、環境設定、模型版本紀錄、測試集與目前使用的報告 Markdown。
+模型權重、PDF、實驗輸出、研究文件、簡報及本機快取不納入此 repository。
+
+新電腦下載專案後，先以 `uv sync` 建立套件環境，再執行：
+
+```powershell
+uv run python src/bge_local.py download
+uv run python src/bge_local.py index
+```
+
+模型為 `BAAI/bge-m3`，固定 revision 為 `5617a9f61b028005a4858fdac845db406aefb181`。
+這個版本取自本機下載的 Hugging Face metadata，並記錄在 `src/bge_local.py`，下載時會使用同一版本。
+報告語料路徑設定在 `src/local_rag.py` 的 `DOCUMENT`。
+
+## 閱讀結果
+
+- 開啟 `outputs/rankings/` 最新的 `.html`，即可用瀏覽器逐題展開片段全文。
+- `outputs/evaluations/retrieval_eval.json` 是執行 `src/local_rag.py eval` 後的 BM25 評估輸出；本機已存在的結果會被覆寫，若要新實驗，請先備份或使用 BGE 評估指令的 `--output` 指定另一個檔名。
+- 原始結果 JSON 保留產生當時的路徑欄位，因此舊檔可能記載搬移前的路徑；研究數據未修改。
+- 目前檢索命中定義是與標準來源行號有交集，不等於生成答案正確率；Q25–Q30 無標準行號，不納入原有 24 題命中評估。
+
+上方導覽也包含本機使用的資料夾；不在 GitHub 保存範圍內的資料夾，下載專案後不會出現。執行程式時會建立需要的輸出與快取目錄。

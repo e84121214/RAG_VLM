@@ -1,0 +1,25 @@
+# Initial repository scope: ignore root entries unless explicitly included.
+/*
+!/.gitignore
+!/.python-version
+!/README.md
+!/pyproject.toml
+!/uv.lock
+!/src/
+!/tests/
+!/data/
+
+# Include the test set and the exact processed report used by the code.
+/data/*
+!/data/testsets/
+!/data/processed/
+/data/processed/*
+!/data/processed/10005臺南市雨水下水道檢討規劃報告-38a259a6ddfa.md
+
+# Generated files and credentials are excluded even inside included folders.
+__pycache__/
+*.py[oc]
+*.egg-info/
+.env
+.env.*
+!.env.example
