@@ -7,6 +7,7 @@
 import argparse
 import hashlib
 import json
+import math
 import os
 import re
 import sys
@@ -103,14 +104,23 @@ def document_vectors(records):
     return _VECTORS
 
 
-def fuse(rankings, pool=20):
+def fuse(rankings, pool=20, constant=60, weights=None):
+    weights = [1.0] * len(rankings) if weights is None else list(weights)
+    if pool < 1 or not math.isfinite(constant) or constant < 0:
+        raise ValueError("候選數必須大於 0，RRF 常數必須是有限的非負數。")
+    if (len(weights) != len(rankings) or not weights
+            or any(not math.isfinite(w) or w < 0 for w in weights)
+            or sum(weights) == 0):
+        raise ValueError("每份排名需有一個有限非負權重，且至少一個權重大於 0。")
     scores = {}
-    for ranking in rankings:
+    for ranking, weight in zip(rankings, weights):
+        if weight == 0:
+            continue
         for rank, passage in enumerate(ranking[:pool], 1):
             key = passage["start"]
             if key not in scores:
                 scores[key] = {**passage, "score": 0.0}
-            scores[key]["score"] += 1 / (60 + rank)
+            scores[key]["score"] += weight / (constant + rank)
     return sorted(scores.values(), key=lambda p: (-p["score"], p["start"]))
 
 
@@ -183,6 +193,9 @@ def main():
     sub = commands.add_parser("rankings", help="保存每題兩種檢索的前 20 名與逐題 HTML 對照報告")
     sub.add_argument("--testset", type=Path, default=local_rag.TESTSET)
     sub.add_argument("--output-dir", type=Path, default=local_rag.PROJECT_ROOT / "outputs/rankings")
+    sub = commands.add_parser("fusion-experiment", help="只讀保存的排名，比較常數與權重；不載入模型")
+    sub.add_argument("--rankings", type=Path, required=True)
+    sub.add_argument("--output-dir", type=Path, default=local_rag.PROJECT_ROOT / "outputs/experiments")
     args = parser.parse_args()
     MODEL_DIR = args.model_dir
     if args.command == "download":
@@ -200,6 +213,9 @@ def main():
     elif args.command == "rankings":
         from export_rankings import export_rankings
         export_rankings(args.testset, args.output_dir, sys.modules[__name__])
+    elif args.command == "fusion-experiment":
+        from fusion_experiment import run_experiment
+        run_experiment(args.rankings, args.output_dir)
     else:
         if args.k <= 0:
             parser.error("-k 必須大於 0")

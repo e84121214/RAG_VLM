@@ -11,9 +11,49 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 import bge_local
 import export_rankings
+import fusion_experiment
 
 
 class RetrievalChecks(unittest.TestCase):
+    def test_weighted_rrf_math_and_invalid_settings(self):
+        a, b = [{"start": i, "score": 100} for i in range(2)]
+        result = bge_local.fuse([[a, b], [b, a]], constant=10, weights=[2, 1])
+        self.assertEqual(result[0]["start"], 0)
+        self.assertAlmostEqual(result[0]["score"], 2 / 11 + 1 / 12)
+        self.assertEqual(a["score"], 100)
+        only_bm25 = bge_local.fuse([[a, b], [b, a]], weights=[1, 0])
+        self.assertEqual([p["start"] for p in only_bm25], [0, 1])
+        for settings in ({"constant": -1}, {"constant": float("nan")},
+                         {"weights": [0, 0]}, {"weights": [1]}, {"weights": [1, -1]}):
+            with self.assertRaises(ValueError):
+                bge_local.fuse([[a], [b]], **settings)
+
+    def test_frozen_fusion_experiment_uses_top10_and_skips_unscored(self):
+        passages = [{"start": i * 10, "start_line": i + 1, "end_line": i + 1,
+                     "chunk_id": f"C{i+1:03d}", "score": 1.0, "text": "原文"}
+                    for i in range(21)]
+        annotate = lambda ps: [{**p, "rank": i} for i, p in enumerate(ps, 1)]
+        question = {"id": "Q01", "question": "問題", "gold_lines": [1, 1],
+                    "bm25": annotate(passages[:20]), "semantic": annotate(passages[1:])}
+        snapshot = {"schema_version": 1, "pool_per_method": 20,
+                    "questions": [question, {"id": "Q30", "gold_lines": None}]}
+        result = fusion_experiment.compare(snapshot)
+        self.assertEqual(result["scored_questions"], 1)
+        self.assertEqual(result["unscored_questions"], ["Q30"])
+        self.assertEqual(result["runs"]["bm25"]["ranks"], {"Q01": 1})
+        self.assertIsNone(result["runs"]["semantic"]["ranks"]["Q01"])
+        # Shared candidates outrank the BM25-only #1 at the original c=60.
+        self.assertIsNone(result["runs"]["original"]["ranks"]["Q01"])
+        self.assertEqual(result["runs"]["original"]["metrics"]["mrr@10"], 0)
+        original = result["questions"][0]["trials"]["original"]
+        self.assertEqual([p["start"] for p in original],
+                         [p["start"] for p in bge_local.fuse([question["bm25"], question["semantic"]])])
+        for trial in fusion_experiment.TRIALS:
+            for p in result["questions"][0]["trials"][trial["id"]]:
+                self.assertAlmostEqual(p["rrf_score"], p["bm25_rrf"] + p["semantic_rrf"])
+        result.update(snapshot_file="test.json", created_at="test", chunking={"size_chars": 3000})
+        self.assertIn('第一階段', fusion_experiment.render_report(result))
+
     def test_rankings_snapshot_retains_both_lists_and_unscored_questions(self):
         questions = export_rankings.questions_from(bge_local.local_rag.TESTSET)
         self.assertEqual(len(questions), 30)

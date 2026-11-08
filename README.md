@@ -48,6 +48,18 @@ uv run python src/local_rag.py retrieve "鄭子寮雨季積水的原因？" -k 3
 uv run python -m unittest discover -s tests
 ```
 
+### 第一階段：只調整 RRF 常數與權重
+
+先用 `rankings` 保存候選排名，再將實際產生的 `.json` 路徑傳給以下指令：
+
+```powershell
+uv run python src/bge_local.py fusion-experiment --rankings outputs/rankings/你的排名檔名.json
+```
+
+這會讀取同一份各前20名的快照，比較原設定（常數60、權重1:1）、只改常數為10、只改BM25:語義權重為2:1。
+不載入模型、不重建索引，並另存 JSON 與 HTML 到 `outputs/experiments/`。結果僅評估有標準來源的24題，所有指標截斷於前10名。
+這些是開發集的參數比較，沒有自動選定最佳設定或改動日常檢索的預設。
+
 使用 `uv run python src/bge_local.py`，讓程式使用專案的 CUDA PyTorch 環境。
 直接寫 `uv run src/bge_local.py` 會使用檔頭的獨立腳本依賴管理，可能與專案環境不同。
 
