@@ -124,6 +124,8 @@ def render_report(data):
             <th>BM25加分</th><th>語義加分</th><th>合計</th><th>來源行號</th></tr></thead>
             <tbody>{fusion_rows}</tbody></table></div></details></details>''')
     gold_count = sum(q["gold_lines"] is not None for q in data["questions"])
+    chunk_size = data["chunking"].get("size_chars", 3000)
+    chunk_overlap = data["chunking"].get("overlap_chars", 500)
     return f'''<!doctype html><html lang="zh-Hant"><meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>逐題來源片段排行榜</title><style>
@@ -140,7 +142,7 @@ def render_report(data):
     </style><main><h1>逐題來源片段排行榜</h1>
     <p>產生時間：{esc(data['created_at'])}｜模型：BGE-M3｜片段數：{data['chunking']['count']}</p>
     <div class="note">每題保存兩種方法各前 20 名。片段編號對應同一份文本切塊，可跨方法比對。<br>
-    每塊最多 3,000 字元，重疊 500 字元，步長 2,500 字元。按原文包含換行的字元位置切分。<br>
+    每塊最多 {chunk_size:,} 字元，重疊 {chunk_overlap:,} 字元，步長 {chunk_size - chunk_overlap:,} 字元。按原文包含換行的字元位置切分。<br>
     「來源行號命中」僅表示與標準行號有交集，不代表答案完整、語義正確或可拒答。<br>
     {gold_count} 題有標準來源；{len(data['questions']) - gold_count} 題無標準來源，不評定命中。原始 BM25 與語義分數不能直接比較。<br>
     RRF 維持各前 20 名、常數 60、等權；沒有進某方法前 20 名，該方法加分為 0。<br>
@@ -165,7 +167,11 @@ def export_rankings(testset, output_dir, engine):
         "document_sha256": hashlib.sha256(engine.local_rag.DOCUMENT.read_bytes()).hexdigest(),
         "model_dir": str(engine.MODEL_DIR.resolve()),
         "index_signature": engine.signature(records),
-        "chunking": {"size_chars": 3000, "overlap_chars": 500, "stride_chars": 2500, "count": len(records)},
+        "model_id": engine.MODEL_ID, "model_revision": engine.MODEL_REVISION,
+        "chunking": {"size_chars": engine.local_rag.CHUNK_SIZE,
+                     "overlap_chars": engine.local_rag.CHUNK_OVERLAP,
+                     "stride_chars": engine.local_rag.CHUNK_SIZE - engine.local_rag.CHUNK_OVERLAP,
+                     "count": len(records)},
         "pool_per_method": 20, "rrf_constant": 60, "rrf_weights": [1, 1],
         "hit_rule": "source line overlap", "questions": results,
     }
@@ -177,3 +183,4 @@ def export_rankings(testset, output_dir, engine):
     html_path.write_text(render_report(data), encoding="utf-8")
     print(f"已保存原始排名：{json_path.resolve()}")
     print(f"請用瀏覽器開啟對照報告：{html_path.resolve()}")
+    return json_path

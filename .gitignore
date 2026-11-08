@@ -9,6 +9,9 @@
 !/tests/
 !/data/
 
+# Keep experiment outputs available for analysis and presentations on other computers.
+!/outputs/
+
 # Include the test set and the exact processed report used by the code.
 /data/*
 !/data/testsets/

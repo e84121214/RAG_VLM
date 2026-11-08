@@ -1,0 +1,43 @@
+{
+  "mode": "semantic",
+  "model": "models\\bge-m3",
+  "testset": "rag_testset_v1.md",
+  "document": ".document-cache\\10005臺南市雨水下水道檢討規劃報告-38a259a6ddfa.md",
+  "questions": 24,
+  "metrics": {
+    "hit@1": 0.458,
+    "hit@3": 0.667,
+    "hit@5": 0.708,
+    "hit@10": 0.708,
+    "mrr@10": 0.566
+  },
+  "ranks": {
+    "Q01": null,
+    "Q02": 1,
+    "Q03": 2,
+    "Q04": 1,
+    "Q05": 1,
+    "Q06": 3,
+    "Q07": null,
+    "Q08": null,
+    "Q09": 2,
+    "Q10": 2,
+    "Q11": null,
+    "Q12": 4,
+    "Q13": null,
+    "Q14": null,
+    "Q15": 2,
+    "Q16": 1,
+    "Q17": null,
+    "Q18": 1,
+    "Q19": 1,
+    "Q20": 1,
+    "Q21": 1,
+    "Q22": 1,
+    "Q23": 1,
+    "Q24": 1
+  },
+  "hit_rule": "source line overlap",
+  "rrf_pool": 20,
+  "rrf_constant": 60
+}

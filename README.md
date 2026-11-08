@@ -60,6 +60,27 @@ uv run python src/bge_local.py fusion-experiment --rankings outputs/rankings/你
 不載入模型、不重建索引，並另存 JSON 與 HTML 到 `outputs/experiments/`。結果僅評估有標準來源的24題，所有指標截斷於前10名。
 這些是開發集的參數比較，沒有自動選定最佳設定或改動日常檢索的預設。
 
+### 第二階段：改變 chunk 大小與重疊
+
+一次跑一組，所有長度單位都是字元。以下比較 1500／250 與原始排行榜：
+
+```powershell
+uv run python src/bge_local.py chunk-experiment --size 1500 --overlap 250 --baseline outputs/rankings/你的原始排名檔名.json
+```
+
+下一組可使用 `--size 750 --overlap 125`。後續測重疊時，固定 `--size`，只改 `--overlap`。
+`--baseline` 可省略；提供時會先確認文件與測試集的雜湊相同。
+
+- 原始 3000／500 使用既有 `.document-cache/bge_m3_index.npz`。
+- 其他組別索引獨立保存在 `.document-cache/chunks/size_大小_overlap_重疊.npz`，驗證相符時可重用。
+- 結果保存在 `outputs/experiments/chunks/size_大小_overlap_重疊/時間戳/`。
+- 每次會保存完整排行榜的 JSON／HTML，以及 `summary.json`、`summary.html`。
+- 同時評估 BM25、語義、混合，混合固定 RRF 常數60、權重1:1、各前20名。第一階段的 `TRIALS` 不影響這個設定。
+- 不修改預設切塊或原始文本；實驗命令設定只作用於當次程式執行。
+- 切塊不同時需重新計算文件向量，因此會載入本地模型；不需重新下載模型。
+- 評估仍用標準行號交集，可能受到片段長度影響，需搭配完整原文人工檢查。原文及標準來源行號均不改動。
+- 若要做第三階段的組合測試，可把該組新產生的排行榜 JSON 傳給 `fusion-experiment`，不需要再次建立向量。
+
 使用 `uv run python src/bge_local.py`，讓程式使用專案的 CUDA PyTorch 環境。
 直接寫 `uv run src/bge_local.py` 會使用檔頭的獨立腳本依賴管理，可能與專案環境不同。
 
@@ -72,8 +93,8 @@ uv run python src/bge_local.py fusion-experiment --rankings outputs/rankings/你
 uv run python src/bge_local.py index
 ```
 
-GitHub 保存程式、環境設定、模型版本紀錄、測試集與目前使用的報告 Markdown。
-模型權重、PDF、實驗輸出、研究文件、簡報及本機快取不納入此 repository。
+GitHub 保存程式、環境設定、模型版本紀錄、測試集、目前使用的報告 Markdown，以及 `outputs/` 的實驗輸出。
+模型權重、來源 PDF、研究文件、簡報及本機快取不納入此 repository。
 
 新電腦下載專案後，先以 `uv sync` 建立套件環境，再執行：
 

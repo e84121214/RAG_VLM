@@ -1,0 +1,255 @@
+{
+  "created_at": "2026-11-08T15:53:42.480743+08:00",
+  "groups": [
+    {
+      "label": "原始對照",
+      "chunking": {
+        "size_chars": 3000,
+        "overlap_chars": 500,
+        "stride_chars": 2500,
+        "count": 259
+      },
+      "ranking_snapshot": "C:\\Users\\User\\Desktop\\RAG_VLM\\outputs\\rankings\\rankings_20261108_120506_648132.json",
+      "snapshot_sha256": "9a7d08b1bc07c4c1e14a3c343666916e8cabcf8ff0116cc5d2111919880843f5",
+      "runs": {
+        "bm25": {
+          "metrics": {
+            "hit@1": 0.833,
+            "hit@3": 0.917,
+            "hit@5": 0.958,
+            "hit@10": 1.0,
+            "mrr@10": 0.883
+          },
+          "ranks": {
+            "Q01": 9,
+            "Q02": 1,
+            "Q03": 1,
+            "Q04": 1,
+            "Q05": 1,
+            "Q06": 1,
+            "Q07": 4,
+            "Q08": 1,
+            "Q09": 1,
+            "Q10": 1,
+            "Q11": 3,
+            "Q12": 1,
+            "Q13": 1,
+            "Q14": 1,
+            "Q15": 1,
+            "Q16": 1,
+            "Q17": 1,
+            "Q18": 1,
+            "Q19": 1,
+            "Q20": 1,
+            "Q21": 2,
+            "Q22": 1,
+            "Q23": 1,
+            "Q24": 1
+          }
+        },
+        "semantic": {
+          "metrics": {
+            "hit@1": 0.458,
+            "hit@3": 0.667,
+            "hit@5": 0.708,
+            "hit@10": 0.708,
+            "mrr@10": 0.566
+          },
+          "ranks": {
+            "Q01": null,
+            "Q02": 1,
+            "Q03": 2,
+            "Q04": 1,
+            "Q05": 1,
+            "Q06": 3,
+            "Q07": null,
+            "Q08": null,
+            "Q09": 2,
+            "Q10": 2,
+            "Q11": null,
+            "Q12": 4,
+            "Q13": null,
+            "Q14": null,
+            "Q15": 2,
+            "Q16": 1,
+            "Q17": null,
+            "Q18": 1,
+            "Q19": 1,
+            "Q20": 1,
+            "Q21": 1,
+            "Q22": 1,
+            "Q23": 1,
+            "Q24": 1
+          }
+        },
+        "hybrid": {
+          "metrics": {
+            "hit@1": 0.708,
+            "hit@3": 0.75,
+            "hit@5": 0.958,
+            "hit@10": 1.0,
+            "mrr@10": 0.779
+          },
+          "ranks": {
+            "Q01": 5,
+            "Q02": 1,
+            "Q03": 1,
+            "Q04": 1,
+            "Q05": 1,
+            "Q06": 1,
+            "Q07": 1,
+            "Q08": 7,
+            "Q09": 1,
+            "Q10": 1,
+            "Q11": 5,
+            "Q12": 2,
+            "Q13": 4,
+            "Q14": 5,
+            "Q15": 1,
+            "Q16": 1,
+            "Q17": 5,
+            "Q18": 1,
+            "Q19": 1,
+            "Q20": 1,
+            "Q21": 1,
+            "Q22": 1,
+            "Q23": 1,
+            "Q24": 1
+          }
+        }
+      }
+    },
+    {
+      "label": "本次切塊",
+      "chunking": {
+        "size_chars": 750,
+        "overlap_chars": 125,
+        "stride_chars": 625,
+        "count": 1033
+      },
+      "ranking_snapshot": "C:\\Users\\User\\Desktop\\RAG_VLM\\outputs\\experiments\\chunks\\size_750_overlap_125\\20261108_155341_220878\\rankings_20261108_155342_380738.json",
+      "snapshot_sha256": "981dbfb16f8f54bf11b0965baf1736763306ad7a050a9f8e7b17bbec0f22c400",
+      "runs": {
+        "bm25": {
+          "metrics": {
+            "hit@1": 0.708,
+            "hit@3": 0.958,
+            "hit@5": 0.958,
+            "hit@10": 1.0,
+            "mrr@10": 0.825
+          },
+          "ranks": {
+            "Q01": 7,
+            "Q02": 1,
+            "Q03": 1,
+            "Q04": 1,
+            "Q05": 1,
+            "Q06": 1,
+            "Q07": 3,
+            "Q08": 2,
+            "Q09": 1,
+            "Q10": 1,
+            "Q11": 2,
+            "Q12": 1,
+            "Q13": 1,
+            "Q14": 1,
+            "Q15": 1,
+            "Q16": 1,
+            "Q17": 1,
+            "Q18": 1,
+            "Q19": 1,
+            "Q20": 1,
+            "Q21": 3,
+            "Q22": 2,
+            "Q23": 2,
+            "Q24": 1
+          }
+        },
+        "semantic": {
+          "metrics": {
+            "hit@1": 0.458,
+            "hit@3": 0.75,
+            "hit@5": 0.792,
+            "hit@10": 0.833,
+            "mrr@10": 0.593
+          },
+          "ranks": {
+            "Q01": 1,
+            "Q02": 1,
+            "Q03": 1,
+            "Q04": 1,
+            "Q05": 1,
+            "Q06": 1,
+            "Q07": null,
+            "Q08": 1,
+            "Q09": 7,
+            "Q10": 2,
+            "Q11": 3,
+            "Q12": 4,
+            "Q13": null,
+            "Q14": 3,
+            "Q15": 2,
+            "Q16": 1,
+            "Q17": null,
+            "Q18": 1,
+            "Q19": 1,
+            "Q20": 1,
+            "Q21": 3,
+            "Q22": 2,
+            "Q23": 3,
+            "Q24": null
+          }
+        },
+        "hybrid": {
+          "metrics": {
+            "hit@1": 0.625,
+            "hit@3": 0.875,
+            "hit@5": 0.958,
+            "hit@10": 1.0,
+            "mrr@10": 0.767
+          },
+          "ranks": {
+            "Q01": 4,
+            "Q02": 1,
+            "Q03": 1,
+            "Q04": 1,
+            "Q05": 1,
+            "Q06": 1,
+            "Q07": 8,
+            "Q08": 2,
+            "Q09": 2,
+            "Q10": 1,
+            "Q11": 1,
+            "Q12": 1,
+            "Q13": 1,
+            "Q14": 1,
+            "Q15": 1,
+            "Q16": 1,
+            "Q17": 5,
+            "Q18": 1,
+            "Q19": 1,
+            "Q20": 1,
+            "Q21": 3,
+            "Q22": 2,
+            "Q23": 2,
+            "Q24": 2
+          }
+        }
+      }
+    }
+  ],
+  "index_file": "C:\\Users\\User\\Desktop\\RAG_VLM\\.document-cache\\chunks\\size_750_overlap_125.npz",
+  "ranking_snapshot": "C:\\Users\\User\\Desktop\\RAG_VLM\\outputs\\experiments\\chunks\\size_750_overlap_125\\20261108_155341_220878\\rankings_20261108_155342_380738.json",
+  "model_id": "BAAI/bge-m3",
+  "model_revision": "5617a9f61b028005a4858fdac845db406aefb181",
+  "document_sha256": "818e89837b03c452ac388c33f8f59b93d2a6f081433050c2a026eeeb0768e3b7",
+  "testset_sha256": "403e0c636bb608ce991aa3b46b8841a5171308ebf07bb700d6dc7ac97f2b0d50",
+  "rrf_constant": 60,
+  "rrf_weights": [
+    1,
+    1
+  ],
+  "pool_per_method": 20,
+  "cutoff": 10,
+  "hit_rule": "source line overlap"
+}

@@ -22,7 +22,10 @@ DOCUMENT = PROJECT_ROOT / (
 )
 EVAL_FILE = PROJECT_ROOT / "outputs/evaluations/retrieval_eval.json"
 TESTSET = PROJECT_ROOT / "data/testsets/rag_testset_v1.md"
+CHUNK_SIZE = 3000
+CHUNK_OVERLAP = 500
 _INDEX = None
+_INDEX_KEY = None
 
 
 def terms(text: str) -> list[str]:
@@ -31,6 +34,8 @@ def terms(text: str) -> list[str]:
 
 
 def chunks(text: str, size: int = 3000, overlap: int = 500):
+    if size <= 0 or not 0 <= overlap < size:
+        raise ValueError("chunk 大小必須大於 0，且重疊長度必須介於 0 與大小之間（不含大小）。")
     for start in range(0, len(text), size - overlap):
         chunk = text[start:start + size]
         if chunk.strip():
@@ -38,8 +43,9 @@ def chunks(text: str, size: int = 3000, overlap: int = 500):
 
 
 def build_index():
-    global _INDEX
-    if _INDEX is not None:
+    global _INDEX, _INDEX_KEY
+    key = (DOCUMENT, CHUNK_SIZE, CHUNK_OVERLAP)
+    if _INDEX is not None and _INDEX_KEY == key:
         return _INDEX
 
     text = DOCUMENT.read_text(encoding="utf-8")
@@ -53,13 +59,16 @@ def build_index():
             "text": chunk,
             "counts": Counter(terms(chunk)),
         }
-        for start, chunk in chunks(text)
+        for start, chunk in chunks(text, CHUNK_SIZE, CHUNK_OVERLAP)
     ]
+    if not records:
+        raise ValueError("文件沒有可索引的片段。")
     document_frequency = Counter(
         token for record in records for token in record["counts"]
     )
     average_length = sum(sum(record["counts"].values()) for record in records) / len(records)
     _INDEX = records, document_frequency, average_length
+    _INDEX_KEY = key
     return _INDEX
 
 

@@ -196,6 +196,12 @@ def main():
     sub = commands.add_parser("fusion-experiment", help="只讀保存的排名，比較常數與權重；不載入模型")
     sub.add_argument("--rankings", type=Path, required=True)
     sub.add_argument("--output-dir", type=Path, default=local_rag.PROJECT_ROOT / "outputs/experiments")
+    sub = commands.add_parser("chunk-experiment", help="建立獨立切塊索引並評估三種檢索；融合固定60、1:1")
+    sub.add_argument("--size", type=int, required=True, help="每塊字元數")
+    sub.add_argument("--overlap", type=int, required=True, help="相鄰片段重疊字元數")
+    sub.add_argument("--baseline", type=Path, help="選用：原設定的排名JSON，供同份報告比較")
+    sub.add_argument("--testset", type=Path, default=local_rag.TESTSET)
+    sub.add_argument("--output-dir", type=Path, default=local_rag.PROJECT_ROOT / "outputs/experiments/chunks")
     args = parser.parse_args()
     MODEL_DIR = args.model_dir
     if args.command == "download":
@@ -216,6 +222,12 @@ def main():
     elif args.command == "fusion-experiment":
         from fusion_experiment import run_experiment
         run_experiment(args.rankings, args.output_dir)
+    elif args.command == "chunk-experiment":
+        if args.size <= 0 or not 0 <= args.overlap < args.size:
+            parser.error("--size 必須大於0，--overlap 必須非負且小於 --size")
+        from chunk_experiment import run_chunk_experiment
+        run_chunk_experiment(sys.modules[__name__], args.size, args.overlap,
+                             args.testset, args.output_dir, args.baseline)
     else:
         if args.k <= 0:
             parser.error("-k 必須大於 0")
