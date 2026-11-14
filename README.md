@@ -48,6 +48,43 @@ uv run python src/local_rag.py retrieve "鄭子寮雨季積水的原因？" -k 3
 uv run python -m unittest discover -s tests
 ```
 
+### 原題庫與口語改寫題庫
+
+`eval` 現在會在全部題目跑完後，集中列出逐題 `Rank`、`Hit@1/3/5/10`、`RR@10`，再顯示整體平均。
+單題 Hit 為 0 或 1；`RR@10` 是首次命中排名的倒數，前十名未命中為 0。`MRR@10` 是各題 RR 的平均，並非單題指標。顯示值取三位小數，平均使用未四捨五入的倒數排名計算。
+
+- 原題庫：`data/testsets/rag_testset_v1.md`，仍保留全部 30 題，其中 24 題有來源可評分。
+- 口語配對改寫集：`data/testsets/rag_testset_colloquial_v1.md`，只改寫 Q01–Q24 的問句，答案及來源沿用原題；不含下一階段的一般民眾新問題。
+- `--testset` 選擇的是**問題清單**，不是要搜尋的報告。兩次仍搜尋同一份報告 Markdown，使用相同模型與索引，不需重跑 `download` 或 `index`。
+
+```powershell
+# 原題庫：混合檢索
+uv run python src/bge_local.py eval --mode hybrid --testset data/testsets/rag_testset_v1.md --output outputs/evaluations/original_hybrid_20261114.json
+
+# 口語改寫題庫：混合檢索
+uv run python src/bge_local.py eval --mode hybrid --testset data/testsets/rag_testset_colloquial_v1.md --output outputs/evaluations/colloquial_hybrid_20261114.json
+```
+
+比較三種方法時，兩份題庫各跑一次 `--mode bm25`、`--mode semantic`、`--mode hybrid`，並將輸出檔名中的方法一起修改，避免覆寫。亦可省略 `--output`，程式預設檔名會包含方法與題庫名稱；相同方法、相同題庫重跑時仍會覆寫同名檔。
+要閱讀改寫題的完整候選片段，可使用 `uv run python src/bge_local.py rankings --testset data/testsets/rag_testset_colloquial_v1.md`。
+
+### 一次產生三種方法的比較總表
+
+```powershell
+uv run python src/bge_local.py rankings --testset data/testsets/rag_testset_colloquial_v2.md
+```
+
+此指令各計算一次 BM25 與語義排名，再用相同候選計算原設定 RRF，不需另外執行三次 `eval` 才能比較。模型只在本次程序中載入一次，沿用既有文件索引。
+每次在 `outputs/rankings/` 產生同名的三份檔案，檔名包含題庫名稱及時間戳，避免不同方法互相覆寫：
+
+- `.md`：三種方法的整體 Hit@1/3/5/10、MRR@10，以及逐題排名、Hit、RR@10 總表。
+- `.html`：同一份總表，加上 BM25、語義、RRF 候選的可展開全文與加分明細。
+- `.json`：原始候選及設定、題庫／語料雜湊，另含 `evaluation` 三種方法的前十名評估指標與排名。
+
+終端也會印出三種方法的整體指標。候選中第 11 名會在來源排名中保留為 11，但在前十名評估的 Hit 與 RR@10 為 0；沒有標準來源的題目不納入指標。`eval --mode ...` 仍是單一方法評估，不會自動載入其他方法。
+
+此改寫集用來檢查原題措辭對結果的影響，不是獨立的新題驗證集。保留必要地名、日期及資訊需求；應先核對問句等義性，再固定設定對照三種方法及逐題變化。若出現 BM25 下降，也需看語義與混合的變化，不能單憑這一點宣告假設已證實。問句草稿尚未依檢索分數調整。
+
 ### 第一階段：只調整 RRF 常數與權重
 
 先用 `rankings` 保存候選排名，再將實際產生的 `.json` 路徑傳給以下指令：
@@ -110,6 +147,7 @@ uv run python src/bge_local.py index
 ## 閱讀結果
 
 - 開啟 `outputs/rankings/` 最新的 `.html`，即可用瀏覽器逐題展開片段全文。
+- 每題的「查看原設定 RRF 加分明細」也可依混合名次展開完整原文，不必再按片段編號到兩路排名找全文；既有 HTML 不會自動更新。
 - `outputs/evaluations/retrieval_eval.json` 是執行 `src/local_rag.py eval` 後的 BM25 評估輸出；本機已存在的結果會被覆寫，若要新實驗，請先備份或使用 BGE 評估指令的 `--output` 指定另一個檔名。
 - 原始結果 JSON 保留產生當時的路徑欄位，因此舊檔可能記載搬移前的路徑；研究數據未修改。
 - 目前檢索命中定義是與標準來源行號有交集，不等於生成答案正確率；Q25–Q30 無標準行號，不納入原有 24 題命中評估。

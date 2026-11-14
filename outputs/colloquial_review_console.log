@@ -1,0 +1,353 @@
+Q01：取得 BM25 與語義檢索前 20 名…
+W1114 14:00:37.654000 9816 .venv\Lib\site-packages\torch\distributed\elastic\multiprocessing\redirects.py:29] NOTE: Redirects are currently not supported in Windows or MacOs.
+本地模型：C:\Users\CCAM144F\Desktop\RAG_VLM\RAG_VLM\models\bge-m3；裝置：cuda:0
+
+Loading weights:   0%|          | 0/391 [00:00<?, ?it/s]
+Loading weights:   1%|▏         | 5/391 [00:00<00:14, 27.20it/s]
+Loading weights: 100%|██████████| 391/391 [00:00<00:00, 1984.42it/s]
+
+pre tokenize:   0%|          | 0/1 [00:00<?, ?it/s]
+pre tokenize: 100%|██████████| 1/1 [00:00<?, ?it/s]
+
+Inference Embeddings:   0%|          | 0/1 [00:00<?, ?it/s]
+Inference Embeddings: 100%|██████████| 1/1 [00:00<00:00, 97.57it/s]
+Q02：取得 BM25 與語義檢索前 20 名…
+
+pre tokenize:   0%|          | 0/1 [00:00<?, ?it/s]
+pre tokenize: 100%|██████████| 1/1 [00:00<?, ?it/s]
+
+Inference Embeddings:   0%|          | 0/1 [00:00<?, ?it/s]
+Inference Embeddings: 100%|██████████| 1/1 [00:00<00:00, 107.84it/s]
+Q03：取得 BM25 與語義檢索前 20 名…
+
+pre tokenize:   0%|          | 0/1 [00:00<?, ?it/s]
+pre tokenize: 100%|██████████| 1/1 [00:00<00:00, 1001.27it/s]
+
+Inference Embeddings:   0%|          | 0/1 [00:00<?, ?it/s]
+Inference Embeddings: 100%|██████████| 1/1 [00:00<00:00, 121.85it/s]
+Q04：取得 BM25 與語義檢索前 20 名…
+
+pre tokenize:   0%|          | 0/1 [00:00<?, ?it/s]
+pre tokenize: 100%|██████████| 1/1 [00:00<?, ?it/s]
+
+Inference Embeddings:   0%|          | 0/1 [00:00<?, ?it/s]
+Inference Embeddings: 100%|██████████| 1/1 [00:00<00:00, 137.47it/s]
+Q05：取得 BM25 與語義檢索前 20 名…
+
+pre tokenize:   0%|          | 0/1 [00:00<?, ?it/s]
+pre tokenize: 100%|██████████| 1/1 [00:00<?, ?it/s]
+
+Inference Embeddings:   0%|          | 0/1 [00:00<?, ?it/s]
+Inference Embeddings: 100%|██████████| 1/1 [00:00<00:00, 112.97it/s]
+Q06：取得 BM25 與語義檢索前 20 名…
+
+pre tokenize:   0%|          | 0/1 [00:00<?, ?it/s]
+pre tokenize: 100%|██████████| 1/1 [00:00<?, ?it/s]
+
+Inference Embeddings:   0%|          | 0/1 [00:00<?, ?it/s]
+Inference Embeddings: 100%|██████████| 1/1 [00:00<00:00, 113.09it/s]
+Q07：取得 BM25 與語義檢索前 20 名…
+
+pre tokenize:   0%|          | 0/1 [00:00<?, ?it/s]
+pre tokenize: 100%|██████████| 1/1 [00:00<?, ?it/s]
+
+Inference Embeddings:   0%|          | 0/1 [00:00<?, ?it/s]
+Inference Embeddings: 100%|██████████| 1/1 [00:00<00:00, 122.96it/s]
+Q08：取得 BM25 與語義檢索前 20 名…
+
+pre tokenize:   0%|          | 0/1 [00:00<?, ?it/s]
+pre tokenize: 100%|██████████| 1/1 [00:00<?, ?it/s]
+
+Inference Embeddings:   0%|          | 0/1 [00:00<?, ?it/s]
+Inference Embeddings: 100%|██████████| 1/1 [00:00<00:00, 115.49it/s]
+Q09：取得 BM25 與語義檢索前 20 名…
+
+pre tokenize:   0%|          | 0/1 [00:00<?, ?it/s]
+pre tokenize: 100%|██████████| 1/1 [00:00<?, ?it/s]
+
+Inference Embeddings:   0%|          | 0/1 [00:00<?, ?it/s]
+Inference Embeddings: 100%|██████████| 1/1 [00:00<00:00, 81.02it/s]
+Q10：取得 BM25 與語義檢索前 20 名…
+
+pre tokenize:   0%|          | 0/1 [00:00<?, ?it/s]
+pre tokenize: 100%|██████████| 1/1 [00:00<?, ?it/s]
+
+Inference Embeddings:   0%|          | 0/1 [00:00<?, ?it/s]
+Inference Embeddings: 100%|██████████| 1/1 [00:00<00:00, 129.00it/s]
+Q11：取得 BM25 與語義檢索前 20 名…
+
+pre tokenize:   0%|          | 0/1 [00:00<?, ?it/s]
+pre tokenize: 100%|██████████| 1/1 [00:00<?, ?it/s]
+
+Inference Embeddings:   0%|          | 0/1 [00:00<?, ?it/s]
+Inference Embeddings: 100%|██████████| 1/1 [00:00<00:00, 123.96it/s]
+Q12：取得 BM25 與語義檢索前 20 名…
+
+pre tokenize:   0%|          | 0/1 [00:00<?, ?it/s]
+pre tokenize: 100%|██████████| 1/1 [00:00<?, ?it/s]
+
+Inference Embeddings:   0%|          | 0/1 [00:00<?, ?it/s]
+Inference Embeddings: 100%|██████████| 1/1 [00:00<00:00, 121.79it/s]
+Q13：取得 BM25 與語義檢索前 20 名…
+
+pre tokenize:   0%|          | 0/1 [00:00<?, ?it/s]
+pre tokenize: 100%|██████████| 1/1 [00:00<?, ?it/s]
+
+Inference Embeddings:   0%|          | 0/1 [00:00<?, ?it/s]
+Inference Embeddings: 100%|██████████| 1/1 [00:00<00:00, 139.04it/s]
+Q14：取得 BM25 與語義檢索前 20 名…
+
+pre tokenize:   0%|          | 0/1 [00:00<?, ?it/s]
+pre tokenize: 100%|██████████| 1/1 [00:00<?, ?it/s]
+
+Inference Embeddings:   0%|          | 0/1 [00:00<?, ?it/s]
+Inference Embeddings: 100%|██████████| 1/1 [00:00<00:00, 118.16it/s]
+Q15：取得 BM25 與語義檢索前 20 名…
+
+pre tokenize:   0%|          | 0/1 [00:00<?, ?it/s]
+pre tokenize: 100%|██████████| 1/1 [00:00<?, ?it/s]
+
+Inference Embeddings:   0%|          | 0/1 [00:00<?, ?it/s]
+Inference Embeddings: 100%|██████████| 1/1 [00:00<00:00, 106.27it/s]
+Q16：取得 BM25 與語義檢索前 20 名…
+
+pre tokenize:   0%|          | 0/1 [00:00<?, ?it/s]
+pre tokenize: 100%|██████████| 1/1 [00:00<00:00, 874.36it/s]
+
+Inference Embeddings:   0%|          | 0/1 [00:00<?, ?it/s]
+Inference Embeddings: 100%|██████████| 1/1 [00:00<00:00, 136.73it/s]
+Q17：取得 BM25 與語義檢索前 20 名…
+
+pre tokenize:   0%|          | 0/1 [00:00<?, ?it/s]
+pre tokenize: 100%|██████████| 1/1 [00:00<?, ?it/s]
+
+Inference Embeddings:   0%|          | 0/1 [00:00<?, ?it/s]
+Inference Embeddings: 100%|██████████| 1/1 [00:00<00:00, 140.23it/s]
+Q18：取得 BM25 與語義檢索前 20 名…
+
+pre tokenize:   0%|          | 0/1 [00:00<?, ?it/s]
+pre tokenize: 100%|██████████| 1/1 [00:00<?, ?it/s]
+
+Inference Embeddings:   0%|          | 0/1 [00:00<?, ?it/s]
+Inference Embeddings: 100%|██████████| 1/1 [00:00<00:00, 119.68it/s]
+Q19：取得 BM25 與語義檢索前 20 名…
+
+pre tokenize:   0%|          | 0/1 [00:00<?, ?it/s]
+pre tokenize: 100%|██████████| 1/1 [00:00<?, ?it/s]
+
+Inference Embeddings:   0%|          | 0/1 [00:00<?, ?it/s]
+Inference Embeddings: 100%|██████████| 1/1 [00:00<00:00, 120.99it/s]
+Q20：取得 BM25 與語義檢索前 20 名…
+
+pre tokenize:   0%|          | 0/1 [00:00<?, ?it/s]
+pre tokenize: 100%|██████████| 1/1 [00:00<00:00, 922.84it/s]
+
+Inference Embeddings:   0%|          | 0/1 [00:00<?, ?it/s]
+Inference Embeddings: 100%|██████████| 1/1 [00:00<00:00, 87.46it/s]
+Q21：取得 BM25 與語義檢索前 20 名…
+
+pre tokenize:   0%|          | 0/1 [00:00<?, ?it/s]
+pre tokenize: 100%|██████████| 1/1 [00:00<?, ?it/s]
+
+Inference Embeddings:   0%|          | 0/1 [00:00<?, ?it/s]
+Inference Embeddings: 100%|██████████| 1/1 [00:00<00:00, 137.47it/s]
+Q22：取得 BM25 與語義檢索前 20 名…
+
+pre tokenize:   0%|          | 0/1 [00:00<?, ?it/s]
+pre tokenize: 100%|██████████| 1/1 [00:00<?, ?it/s]
+
+Inference Embeddings:   0%|          | 0/1 [00:00<?, ?it/s]
+Inference Embeddings: 100%|██████████| 1/1 [00:00<00:00, 140.08it/s]
+Q23：取得 BM25 與語義檢索前 20 名…
+
+pre tokenize:   0%|          | 0/1 [00:00<?, ?it/s]
+pre tokenize: 100%|██████████| 1/1 [00:00<?, ?it/s]
+
+Inference Embeddings:   0%|          | 0/1 [00:00<?, ?it/s]
+Inference Embeddings: 100%|██████████| 1/1 [00:00<00:00, 137.80it/s]
+Q24：取得 BM25 與語義檢索前 20 名…
+
+pre tokenize:   0%|          | 0/1 [00:00<?, ?it/s]
+pre tokenize: 100%|██████████| 1/1 [00:00<?, ?it/s]
+
+Inference Embeddings:   0%|          | 0/1 [00:00<?, ?it/s]
+Inference Embeddings: 100%|██████████| 1/1 [00:00<00:00, 126.64it/s]
+已保存原始排名：C:\Users\CCAM144F\Desktop\RAG_VLM\RAG_VLM\outputs\analysis\colloquial_review_20261114_140026\v1\rankings_20261114_140042_896839.json
+請用瀏覽器開啟對照報告：C:\Users\CCAM144F\Desktop\RAG_VLM\RAG_VLM\outputs\analysis\colloquial_review_20261114_140026\v1\rankings_20261114_140042_896839.html
+SUMMARY v1 bm25 {'hit@1': 0.458, 'hit@3': 0.583, 'hit@5': 0.708, 'hit@10': 0.708, 'mrr@10': 0.534}
+SUMMARY v1 semantic {'hit@1': 0.333, 'hit@3': 0.625, 'hit@5': 0.75, 'hit@10': 0.833, 'mrr@10': 0.515}
+SUMMARY v1 hybrid {'hit@1': 0.542, 'hit@3': 0.708, 'hit@5': 0.75, 'hit@10': 0.833, 'mrr@10': 0.631}
+Q01：取得 BM25 與語義檢索前 20 名…
+
+pre tokenize:   0%|          | 0/1 [00:00<?, ?it/s]
+pre tokenize: 100%|██████████| 1/1 [00:00<?, ?it/s]
+
+Inference Embeddings:   0%|          | 0/1 [00:00<?, ?it/s]
+Inference Embeddings: 100%|██████████| 1/1 [00:00<00:00, 106.61it/s]
+Q02：取得 BM25 與語義檢索前 20 名…
+
+pre tokenize:   0%|          | 0/1 [00:00<?, ?it/s]
+pre tokenize: 100%|██████████| 1/1 [00:00<?, ?it/s]
+
+Inference Embeddings:   0%|          | 0/1 [00:00<?, ?it/s]
+Inference Embeddings: 100%|██████████| 1/1 [00:00<00:00, 119.88it/s]
+Q03：取得 BM25 與語義檢索前 20 名…
+
+pre tokenize:   0%|          | 0/1 [00:00<?, ?it/s]
+pre tokenize: 100%|██████████| 1/1 [00:00<?, ?it/s]
+
+Inference Embeddings:   0%|          | 0/1 [00:00<?, ?it/s]
+Inference Embeddings: 100%|██████████| 1/1 [00:00<00:00, 143.34it/s]
+Q04：取得 BM25 與語義檢索前 20 名…
+
+pre tokenize:   0%|          | 0/1 [00:00<?, ?it/s]
+pre tokenize: 100%|██████████| 1/1 [00:00<?, ?it/s]
+
+Inference Embeddings:   0%|          | 0/1 [00:00<?, ?it/s]
+Inference Embeddings: 100%|██████████| 1/1 [00:00<00:00, 115.88it/s]
+Q05：取得 BM25 與語義檢索前 20 名…
+
+pre tokenize:   0%|          | 0/1 [00:00<?, ?it/s]
+pre tokenize: 100%|██████████| 1/1 [00:00<?, ?it/s]
+
+Inference Embeddings:   0%|          | 0/1 [00:00<?, ?it/s]
+Inference Embeddings: 100%|██████████| 1/1 [00:00<00:00, 122.87it/s]
+Q06：取得 BM25 與語義檢索前 20 名…
+
+pre tokenize:   0%|          | 0/1 [00:00<?, ?it/s]
+pre tokenize: 100%|██████████| 1/1 [00:00<?, ?it/s]
+
+Inference Embeddings:   0%|          | 0/1 [00:00<?, ?it/s]
+Inference Embeddings: 100%|██████████| 1/1 [00:00<00:00, 95.04it/s]
+Q07：取得 BM25 與語義檢索前 20 名…
+
+pre tokenize:   0%|          | 0/1 [00:00<?, ?it/s]
+pre tokenize: 100%|██████████| 1/1 [00:00<?, ?it/s]
+
+Inference Embeddings:   0%|          | 0/1 [00:00<?, ?it/s]
+Inference Embeddings: 100%|██████████| 1/1 [00:00<00:00, 123.95it/s]
+Q08：取得 BM25 與語義檢索前 20 名…
+
+pre tokenize:   0%|          | 0/1 [00:00<?, ?it/s]
+pre tokenize: 100%|██████████| 1/1 [00:00<?, ?it/s]
+
+Inference Embeddings:   0%|          | 0/1 [00:00<?, ?it/s]
+Inference Embeddings: 100%|██████████| 1/1 [00:00<00:00, 137.07it/s]
+Q09：取得 BM25 與語義檢索前 20 名…
+
+pre tokenize:   0%|          | 0/1 [00:00<?, ?it/s]
+pre tokenize: 100%|██████████| 1/1 [00:00<?, ?it/s]
+
+Inference Embeddings:   0%|          | 0/1 [00:00<?, ?it/s]
+Inference Embeddings: 100%|██████████| 1/1 [00:00<00:00, 109.74it/s]
+Q10：取得 BM25 與語義檢索前 20 名…
+
+pre tokenize:   0%|          | 0/1 [00:00<?, ?it/s]
+pre tokenize: 100%|██████████| 1/1 [00:00<?, ?it/s]
+
+Inference Embeddings:   0%|          | 0/1 [00:00<?, ?it/s]
+Inference Embeddings: 100%|██████████| 1/1 [00:00<00:00, 143.34it/s]
+Q11：取得 BM25 與語義檢索前 20 名…
+
+pre tokenize:   0%|          | 0/1 [00:00<?, ?it/s]
+pre tokenize: 100%|██████████| 1/1 [00:00<?, ?it/s]
+
+Inference Embeddings:   0%|          | 0/1 [00:00<?, ?it/s]
+Inference Embeddings: 100%|██████████| 1/1 [00:00<00:00, 114.45it/s]
+Q12：取得 BM25 與語義檢索前 20 名…
+
+pre tokenize:   0%|          | 0/1 [00:00<?, ?it/s]
+pre tokenize: 100%|██████████| 1/1 [00:00<?, ?it/s]
+
+Inference Embeddings:   0%|          | 0/1 [00:00<?, ?it/s]
+Inference Embeddings: 100%|██████████| 1/1 [00:00<00:00, 125.24it/s]
+Q13：取得 BM25 與語義檢索前 20 名…
+
+pre tokenize:   0%|          | 0/1 [00:00<?, ?it/s]
+pre tokenize: 100%|██████████| 1/1 [00:00<?, ?it/s]
+
+Inference Embeddings:   0%|          | 0/1 [00:00<?, ?it/s]
+Inference Embeddings: 100%|██████████| 1/1 [00:00<00:00, 142.19it/s]
+Q14：取得 BM25 與語義檢索前 20 名…
+
+pre tokenize:   0%|          | 0/1 [00:00<?, ?it/s]
+pre tokenize: 100%|██████████| 1/1 [00:00<?, ?it/s]
+
+Inference Embeddings:   0%|          | 0/1 [00:00<?, ?it/s]
+Inference Embeddings: 100%|██████████| 1/1 [00:00<00:00, 120.96it/s]
+Q15：取得 BM25 與語義檢索前 20 名…
+
+pre tokenize:   0%|          | 0/1 [00:00<?, ?it/s]
+pre tokenize: 100%|██████████| 1/1 [00:00<?, ?it/s]
+
+Inference Embeddings:   0%|          | 0/1 [00:00<?, ?it/s]
+Inference Embeddings: 100%|██████████| 1/1 [00:00<00:00, 123.39it/s]
+Q16：取得 BM25 與語義檢索前 20 名…
+
+pre tokenize:   0%|          | 0/1 [00:00<?, ?it/s]
+pre tokenize: 100%|██████████| 1/1 [00:00<?, ?it/s]
+
+Inference Embeddings:   0%|          | 0/1 [00:00<?, ?it/s]
+Inference Embeddings: 100%|██████████| 1/1 [00:00<00:00, 59.55it/s]
+Q17：取得 BM25 與語義檢索前 20 名…
+
+pre tokenize:   0%|          | 0/1 [00:00<?, ?it/s]
+pre tokenize: 100%|██████████| 1/1 [00:00<?, ?it/s]
+
+Inference Embeddings:   0%|          | 0/1 [00:00<?, ?it/s]
+Inference Embeddings: 100%|██████████| 1/1 [00:00<00:00, 107.28it/s]
+Q18：取得 BM25 與語義檢索前 20 名…
+
+pre tokenize:   0%|          | 0/1 [00:00<?, ?it/s]
+pre tokenize: 100%|██████████| 1/1 [00:00<?, ?it/s]
+
+Inference Embeddings:   0%|          | 0/1 [00:00<?, ?it/s]
+Inference Embeddings: 100%|██████████| 1/1 [00:00<00:00, 123.35it/s]
+Q19：取得 BM25 與語義檢索前 20 名…
+
+pre tokenize:   0%|          | 0/1 [00:00<?, ?it/s]
+pre tokenize: 100%|██████████| 1/1 [00:00<?, ?it/s]
+
+Inference Embeddings:   0%|          | 0/1 [00:00<?, ?it/s]
+Inference Embeddings: 100%|██████████| 1/1 [00:00<00:00, 131.06it/s]
+Q20：取得 BM25 與語義檢索前 20 名…
+
+pre tokenize:   0%|          | 0/1 [00:00<?, ?it/s]
+pre tokenize: 100%|██████████| 1/1 [00:00<?, ?it/s]
+
+Inference Embeddings:   0%|          | 0/1 [00:00<?, ?it/s]
+Inference Embeddings: 100%|██████████| 1/1 [00:00<00:00, 79.07it/s]
+Q21：取得 BM25 與語義檢索前 20 名…
+
+pre tokenize:   0%|          | 0/1 [00:00<?, ?it/s]
+pre tokenize: 100%|██████████| 1/1 [00:00<00:00, 1003.18it/s]
+
+Inference Embeddings:   0%|          | 0/1 [00:00<?, ?it/s]
+Inference Embeddings: 100%|██████████| 1/1 [00:00<00:00, 134.72it/s]
+Q22：取得 BM25 與語義檢索前 20 名…
+
+pre tokenize:   0%|          | 0/1 [00:00<?, ?it/s]
+pre tokenize: 100%|██████████| 1/1 [00:00<?, ?it/s]
+
+Inference Embeddings:   0%|          | 0/1 [00:00<?, ?it/s]
+Inference Embeddings: 100%|██████████| 1/1 [00:00<00:00, 137.28it/s]
+Q23：取得 BM25 與語義檢索前 20 名…
+
+pre tokenize:   0%|          | 0/1 [00:00<?, ?it/s]
+pre tokenize: 100%|██████████| 1/1 [00:00<?, ?it/s]
+
+Inference Embeddings:   0%|          | 0/1 [00:00<?, ?it/s]
+Inference Embeddings: 100%|██████████| 1/1 [00:00<00:00, 134.06it/s]
+Q24：取得 BM25 與語義檢索前 20 名…
+
+pre tokenize:   0%|          | 0/1 [00:00<?, ?it/s]
+pre tokenize: 100%|██████████| 1/1 [00:00<00:00, 846.82it/s]
+
+Inference Embeddings:   0%|          | 0/1 [00:00<?, ?it/s]
+Inference Embeddings: 100%|██████████| 1/1 [00:00<00:00, 98.05it/s]
+已保存原始排名：C:\Users\CCAM144F\Desktop\RAG_VLM\RAG_VLM\outputs\analysis\colloquial_review_20261114_140026\v2\rankings_20261114_140043_547244.json
+請用瀏覽器開啟對照報告：C:\Users\CCAM144F\Desktop\RAG_VLM\RAG_VLM\outputs\analysis\colloquial_review_20261114_140026\v2\rankings_20261114_140043_547244.html
+SUMMARY v2 bm25 {'hit@1': 0.458, 'hit@3': 0.583, 'hit@5': 0.667, 'hit@10': 0.667, 'mrr@10': 0.528}
+SUMMARY v2 semantic {'hit@1': 0.208, 'hit@3': 0.583, 'hit@5': 0.625, 'hit@10': 0.792, 'mrr@10': 0.412}
+SUMMARY v2 hybrid {'hit@1': 0.333, 'hit@3': 0.625, 'hit@5': 0.667, 'hit@10': 0.792, 'mrr@10': 0.485}
+REVIEW_SUMMARY C:\Users\CCAM144F\Desktop\RAG_VLM\RAG_VLM\outputs\analysis\colloquial_review_20261114_140026\summary.json

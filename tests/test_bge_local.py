@@ -169,6 +169,9 @@ class RetrievalChecks(unittest.TestCase):
         self.assertNotIn('<script>alert(', report)
         self.assertIn('不評定', report)
         self.assertIn('另一段原文', report)
+        fusion_section = report.split('查看原設定 RRF 加分明細', 1)[1].split('</tbody>', 1)[0]
+        self.assertIn('完整原文（可展開）', fusion_section)
+        self.assertIn('<pre>&lt;script&gt;alert(&quot;raw text&quot;)&lt;/script&gt;</pre>', fusion_section)
 
     def test_rrf_rewards_agreement_and_deduplicates(self):
         a, b, c = [{"start": i, "text": str(i), "score": 100} for i in range(3)]
@@ -176,6 +179,29 @@ class RetrievalChecks(unittest.TestCase):
         self.assertEqual([p["start"] for p in result], [1, 0, 2])
         self.assertAlmostEqual(result[0]["score"], 2 / 62)
         self.assertEqual(a["score"], 100)  # Do not mutate BM25 scores.
+
+    def test_rankings_summary_scores_top10_and_preserves_candidate_rank(self):
+        questions = [
+            {"id": "Q01", "gold_lines": [1, 1],
+             "first_source_overlap_rank": {"bm25": 1, "semantic": 11, "hybrid": 3}},
+            {"id": "Q02", "gold_lines": [2, 2],
+             "first_source_overlap_rank": {"bm25": None, "semantic": 10, "hybrid": 11}},
+            {"id": "Q25", "gold_lines": None, "first_source_overlap_rank": None},
+        ]
+        result = export_rankings.evaluation_summary(questions)
+        self.assertEqual(result["scored_questions"], 2)
+        self.assertEqual(result["unscored_questions"], ["Q25"])
+        self.assertEqual(result["runs"]["semantic"]["ranks"], {"Q01": None, "Q02": 10})
+        self.assertEqual(result["runs"]["semantic"]["metrics"]["mrr@10"], 0.05)
+        self.assertEqual(result["runs"]["bm25"]["metrics"]["hit@1"], 0.5)
+        self.assertEqual(result["runs"]["hybrid"]["metrics"]["mrr@10"], 0.167)
+        overall, rows = export_rankings.summary_tables({"questions": questions})
+        self.assertEqual(len(overall), 4)
+        self.assertEqual(len(rows), 7)  # Header and two scored questions × three methods.
+        self.assertIn(["Q01", "語義", "11", "0", "0", "0", "0", "0.000"], rows)
+        self.assertEqual(questions[0]["first_source_overlap_rank"]["semantic"], 11)
+        empty = export_rankings.evaluation_summary(questions[-1:])
+        self.assertIsNone(empty["runs"]["bm25"]["metrics"])
 
     def test_bm25_evaluation_matches_saved_baseline(self):
         # Expected regression values are test assertions, not an external output dependency.
@@ -207,6 +233,45 @@ class RetrievalChecks(unittest.TestCase):
             with self.assertRaises(ValueError):
                 bge_local.evaluate(testset, "bm25", output)
             self.assertFalse(output.exists())
+
+    def test_evaluation_terminal_table_handles_rank_boundaries_and_miss(self):
+        with tempfile.TemporaryDirectory(dir=Path.cwd()) as folder:
+            testset = Path(folder) / "paired.md"
+            testset.write_text("\n".join(
+                f"| Q{i:02d} | 問題{i} | 答案 | 快取第 50–51 行 |"
+                for i in range(1, 6)
+            ) + "\n| Q25 | 即時問題 | 資料不足 | 即時資料 |\n", encoding="utf-8")
+            def passages(rank):
+                return [{"start_line": 50 if i == rank else 100,
+                         "end_line": 51 if i == rank else 101} for i in range(1, 11)]
+            stdout = io.StringIO()
+            with patch.object(bge_local, "retrieve", side_effect=[
+                    passages(rank) for rank in (1, 3, 5, 10, None)
+            ]) as retrieve, contextlib.redirect_stdout(stdout):
+                bge_local.evaluate(testset, "hybrid", Path(folder) / "eval.json")
+            rows = [line.split() for line in stdout.getvalue().splitlines()
+                    if line.startswith("Q") and ":" not in line]
+            self.assertEqual(rows, [
+                ["Q01", "1", "1", "1", "1", "1", "1.000"],
+                ["Q02", "3", "0", "1", "1", "1", "0.333"],
+                ["Q03", "5", "0", "0", "1", "1", "0.200"],
+                ["Q04", "10", "0", "0", "0", "1", "0.100"],
+                ["Q05", "-", "0", "0", "0", "0", "0.000"],
+            ])
+            self.assertEqual(retrieve.call_count, 5)
+            self.assertTrue(all(call.args[1:] == (10, "hybrid")
+                                for call in retrieve.call_args_list))
+            self.assertIn("MRR@10", stdout.getvalue())
+
+    def test_colloquial_testset_keeps_paired_answers_and_sources(self):
+        original = export_rankings.questions_from(bge_local.local_rag.TESTSET)
+        paired = export_rankings.questions_from(
+            bge_local.local_rag.TESTSET.with_name("rag_testset_colloquial_v1.md"))
+        self.assertEqual([q["id"] for q in paired], [f"Q{i:02d}" for i in range(1, 25)])
+        for old, new in zip(original[:24], paired):
+            for field in ("id", "reference", "source", "gold_lines"):
+                self.assertEqual(new[field], old[field])
+            self.assertNotEqual(new["question"], old["question"])
 
 
 if __name__ == "__main__":

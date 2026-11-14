@@ -1,0 +1,43 @@
+{
+  "mode": "hybrid",
+  "model": "C:\\Users\\CCAM144F\\Desktop\\RAG_VLM\\RAG_VLM\\models\\bge-m3",
+  "testset": "C:\\Users\\CCAM144F\\Desktop\\RAG_VLM\\RAG_VLM\\data\\testsets\\rag_testset_v1.md",
+  "document": "C:\\Users\\CCAM144F\\Desktop\\RAG_VLM\\RAG_VLM\\data\\processed\\10005臺南市雨水下水道檢討規劃報告-38a259a6ddfa.md",
+  "questions": 24,
+  "metrics": {
+    "hit@1": 0.708,
+    "hit@3": 0.75,
+    "hit@5": 0.958,
+    "hit@10": 1.0,
+    "mrr@10": 0.779
+  },
+  "ranks": {
+    "Q01": 5,
+    "Q02": 1,
+    "Q03": 1,
+    "Q04": 1,
+    "Q05": 1,
+    "Q06": 1,
+    "Q07": 1,
+    "Q08": 7,
+    "Q09": 1,
+    "Q10": 1,
+    "Q11": 5,
+    "Q12": 2,
+    "Q13": 4,
+    "Q14": 5,
+    "Q15": 1,
+    "Q16": 1,
+    "Q17": 5,
+    "Q18": 1,
+    "Q19": 1,
+    "Q20": 1,
+    "Q21": 1,
+    "Q22": 1,
+    "Q23": 1,
+    "Q24": 1
+  },
+  "hit_rule": "source line overlap",
+  "rrf_pool": 20,
+  "rrf_constant": 60
+}

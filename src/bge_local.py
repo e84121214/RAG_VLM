@@ -171,6 +171,14 @@ def evaluate(testset, mode, output):
               "hit_rule": "source line overlap", "rrf_pool": 20, "rrf_constant": 60}
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
+    print("\n逐題結果：Hit 為 0/1；RR@10 為首次命中排名的倒數，前 10 名未命中記 0。")
+    print(f"{'ID':<5} {'Rank':>4} {'Hit@1':>6} {'Hit@3':>6} {'Hit@5':>6} {'Hit@10':>7} {'RR@10':>7}")
+    for question_id, rank in ranks.items():
+        hits = [int(rank is not None and rank <= k) for k in (1, 3, 5, 10)]
+        rr = 1 / rank if rank is not None else 0.0
+        print(f"{question_id:<5} {str(rank) if rank is not None else '-':>4}"
+              f" {hits[0]:>6} {hits[1]:>6} {hits[2]:>6} {hits[3]:>7} {rr:>7.3f}")
+    print(f"\n整體平均（{len(ranks)} 題，MRR@10 為各題 RR@10 的平均）：")
     print(json.dumps(metrics, ensure_ascii=False, indent=2))
     print(f"已保存：{output}")
 
@@ -190,7 +198,7 @@ def main():
     sub.add_argument("--mode", choices=("bm25", "semantic", "hybrid"), default="semantic")
     sub.add_argument("--testset", type=Path, default=local_rag.TESTSET)
     sub.add_argument("--output", type=Path)
-    sub = commands.add_parser("rankings", help="保存每題兩種檢索的前 20 名與逐題 HTML 對照報告")
+    sub = commands.add_parser("rankings", help="一次比較三種方法，保存指標總表與每題候選全文（JSON/HTML/Markdown）")
     sub.add_argument("--testset", type=Path, default=local_rag.TESTSET)
     sub.add_argument("--output-dir", type=Path, default=local_rag.PROJECT_ROOT / "outputs/rankings")
     sub = commands.add_parser("fusion-experiment", help="只讀保存的排名，比較常數與權重；不載入模型")
